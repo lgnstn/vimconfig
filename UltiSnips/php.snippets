@@ -1,0 +1,14 @@
+snippet name "Inteligent class name and namespace" b
+<?php
+
+namespace ${4:`!v substitute(substitute(substitute(expand("%:p"), '\v(.*\/\U+)((\/\u\w+)+)\/\u\w+.php$', '\2', ''), '\/', '\\', 'g'), '\\', '', '')`};
+
+class ${2:`!p snip.rv = snip.basename or "name"`} ${3}
+{
+    ${1}
+}
+endsnippet
+
+snippet vd "Var dump function"
+var_dump(${1});${2}
+endsnippet
