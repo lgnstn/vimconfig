@@ -9,11 +9,7 @@ call vundle#rc()
 
 set foldmethod=manual
 
-let g:syntastic_js_checkers = ['jshint']
-
-" JSX support
-let g:syntastic_javascript_checkers = ['jsxhint']
-let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
+let g:syntastic_javascript_checkers = ['eslint']
 
 " let Vundle manage Vundle. Required!
 Plugin 'gmarik/vundle'
