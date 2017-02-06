@@ -7,8 +7,13 @@ filetype off                   " required!
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-let g:syntastic_javascript_jshint_args = '--config /Users/iustin/.jshintrc'
 set foldmethod=manual
+
+let g:syntastic_js_checkers = ['jshint']
+
+" JSX support
+let g:syntastic_javascript_checkers = ['jsxhint']
+let g:syntastic_javascript_jsxhint_exec = 'jsx-jshint-wrapper'
 
 " let Vundle manage Vundle. Required!
 Plugin 'gmarik/vundle'
@@ -70,20 +75,8 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/nerdtree-ack'
 Plugin 'mileszs/ack.vim'
 
-" PHP Autocomplete
-Plugin 'vim-scripts/AutoTag'
-Plugin 'shawncplus/phpcomplete.vim'
-Plugin 'arnaud-lb/vim-php-namespace'
-
 " PHPUnit
 Plugin 'joonty/vim-phpunitqf'
-
-" PHP Documentor
-Plugin 'tobyS/vmustache'
-Plugin 'tobyS/pdv'
-
-" Symfony
-Plugin 'stocarul/vim-symfony'
 
 " Javascript
 Plugin 'isRuslan/vim-es6'
@@ -92,17 +85,12 @@ Plugin 'othree/yajs.vim'
 " Syntax checker
 Plugin 'scrooloose/syntastic'
 
-" Supports twig PHP templates
-Plugin 'evidens/vim-twig'
-
 " TAB for autocompletion
 Plugin 'ervandew/supertab'
 
 " Snippets
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'algotech/ultisnips-php'
-Plugin 'algotech/ultisnips-javascript'
 
 " Full path fuzzy file finder
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -296,16 +284,9 @@ noremap   <Right>  <NOP>
 nmap <Leader>o <Plug>(openbrowser-smart-search)
 vmap <Leader>o <Plug>(openbrowser-smart-search)
 
-" PHP Documentor configuration
-let g:pdv_template_dir = $HOME ."/.vim/pdv/templates_snip"
-map <Leader>d :call pdv#DocumentWithSnip()<CR>
-
 "Autocomplete shortcuts
 imap <C-Space> <C-x><C-o>
 imap <C-@> <C-Space>
-
-"Run unit test when saving a test file
-:autocmd BufWritePost *Test.php :Test %
 
 "Dash bindings
 :nmap <silent> <leader>da <Plug>DashSearch
@@ -333,11 +314,6 @@ let g:session_command_aliases = 1
 "Configure tags plugin to use tags.vendors
 set tags+=./tags.vendors,tags.vendors
 
-"Namespace mappings
-inoremap <Leader>u <C-O>:call PhpInsertUse()<CR>
-noremap <Leader>u :call PhpInsertUse()<CR>
-inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
-
 "Set the number of writes without committing before the message is shown
 let g:YUNOcommit_after = 200
 
@@ -352,7 +328,7 @@ nmap <silent> <C-b> :BuffergatorToggle<CR>
 :set guioptions-=R
 
 "Scroll the window with 10 lines around
-set scrolloff=10
+set scrolloff=5
 
 "IndentLine config
 let g:indentLine_char = '.'
