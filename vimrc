@@ -11,6 +11,9 @@ set foldmethod=manual
 
 let g:syntastic_javascript_checkers = ['eslint']
 
+" Autosave when focus is lost
+:au FocusLost * :wa
+
 " let Vundle manage Vundle. Required!
 Plugin 'gmarik/vundle'
 
@@ -307,8 +310,10 @@ let g:session_autosave_periodic = 1
 let g:session_default_to_last = 1
 let g:session_command_aliases = 1
 
-"Configure tags plugin to use tags.vendors
-set tags+=./tags.vendors,tags.vendors
+"Configure tags plugin to use tags.vendors and local tags
+set tags+=./tags.vendors,tags.vendors,.git/tags,./tags,tags;$HOME
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 "Set the number of writes without committing before the message is shown
 let g:YUNOcommit_after = 200
