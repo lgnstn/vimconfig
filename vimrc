@@ -1,23 +1,40 @@
-"
 " START VUNDLE CONFIGURATION
 "
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 set foldmethod=manual
+set dir=~/.vimtmp
 
 let g:syntastic_javascript_checkers = ['eslint']
 
 " Autosave when focus is lost
 :au FocusLost * :wa
 
+source ~/.vim/php-doc.vim
+inoremap <C-Z> <ESC>:call PhpDocSingle()<CR>i
+nnoremap <C-Z> :call PhpDocSingle()<CR>
+vnoremap <C-Z> :call PhpDocRange()<CR>
+
+" Reopen last closed window that was in split
+nmap <c-s-t> :vs<bar>:b#<CR>
+
 " let Vundle manage Vundle. Required!
-Plugin 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
 " My Plugins here:
+
+" Markdown preview
+Plugin 'JamshedVesuna/vim-markdown-preview'
+
+" Debugger client
+Plugin 'joonty/vdebug'
+
+" Python indentation
+Plugin 'vim-scripts/indentpython.vim'
 
 " Ruby support
 Plugin 'git@github.com:vim-ruby/vim-ruby.git'
@@ -29,7 +46,7 @@ Plugin 'git@github.com:tpope/vim-rails.git'
 Plugin 'thinca/vim-localrc'
 
 " themes and statusbars
-Plugin 'altercation/vim-colors-solarized'
+"Plugin 'altercation/vim-colors-solarized'
 Plugin 'Yggdroot/indentLine'
 Plugin 'bling/vim-airline'
 Plugin 'airblade/vim-gitgutter'
@@ -37,9 +54,6 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " Plugin to udnerstand .editorconfig files
 Plugin 'editorconfig/editorconfig-vim'
-
-" View images in Vim
-Plugin 'ashisha/image.vim'
 
 " Session management
 Plugin 'xolox/vim-session'
@@ -78,14 +92,17 @@ Plugin 'mileszs/ack.vim'
 Plugin 'joonty/vim-phpunitqf'
 
 " Javascript
-Plugin 'isRuslan/vim-es6'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'crusoexia/vim-javascript-lib'
 Plugin 'othree/yajs.vim'
 
 " Syntax checker
 Plugin 'scrooloose/syntastic'
 
 " TAB for autocompletion
-Plugin 'ervandew/supertab'
+"Plugin 'ervandew/supertab'
+Bundle 'Valloric/YouCompleteMe'
 
 " Snippets
 Plugin 'SirVer/ultisnips'
@@ -113,7 +130,6 @@ Plugin 'greyblake/vim-preview'
 
 Plugin 'kchmck/vim-coffee-script'
 
-filetype plugin indent on     " required!
 "
 "
 " Brief help
@@ -129,10 +145,23 @@ filetype plugin indent on     " required!
 
 "
 " END VUNDLE CONFIGURATION
-"
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " Change the mapleader default key to ','
 let mapleader = ","
+
+" You Complete Me
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_use_ultisnips_completer = 0
+
+" Markdown preview key
+let vim_markdown_preview_hotkey='<C-m>'
+let vim_markdown_preview_github=1
+
+" JSX syntax in js files
+let g:jsx_ext_required = 0
 
 syntax enable
 set enc=utf-8
@@ -140,7 +169,7 @@ set background=dark
 
 if has('gui_running')
     " Enable the solarized theme
-    colorscheme solarized
+    colorscheme vendettacursor
 
     " Enable Spell Checking
     set spell
@@ -221,6 +250,7 @@ match ErrorMsg '\%>80v.\+'
 
 " Highlight the columns from 81 to 120
 execute 'set colorcolumn=' . join(range(81,120),',')
+autocmd Filetype php execute 'set colorcolumn=' . join(range(121,140),',')
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -345,3 +375,6 @@ noremap <leader>n :NERDTreeFind<CR>
 
 " Press Space to turn off highlighting and clear any message already displayed
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" Do no scan included files - Supertab
+set complete-=i
