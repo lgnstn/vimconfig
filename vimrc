@@ -101,12 +101,11 @@ Plugin 'othree/yajs.vim'
 Plugin 'scrooloose/syntastic'
 
 " TAB for autocompletion
-"Plugin 'ervandew/supertab'
-Bundle 'Valloric/YouCompleteMe'
+Plugin 'ervandew/supertab'
 
 " Snippets
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+"Plugin 'SirVer/ultisnips'
+"Plugin 'honza/vim-snippets'
 
 " Full path fuzzy file finder
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -132,8 +131,7 @@ Plugin 'kchmck/vim-coffee-script'
 
 "
 "
-" Brief help
-" :PluginList       - lists configured plugins
+" Brief help " :PluginList       - lists configured plugins
 " :PluginInstall    - installs plugins; append `!` to update
 "                   - or just :PluginUpdate
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
@@ -152,9 +150,9 @@ filetype plugin indent on    " required
 " Change the mapleader default key to ','
 let mapleader = ","
 
-" You Complete Me
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_use_ultisnips_completer = 0
+" Maintain undo history between sessions
+set undofile
+set undodir=~/.vim/undo
 
 " Markdown preview key
 let vim_markdown_preview_hotkey='<C-m>'
@@ -304,6 +302,10 @@ imap <C-v> <C-r><C-o>+"
 map <leader>c :!./app/console -s<CR>
 
 " Disabling the cursor/arrow keys
+inoremap  <Up>     <NOP>
+inoremap  <Down>   <NOP>
+inoremap  <Left>   <NOP>
+inoremap  <Right>  <NOP>
 noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>

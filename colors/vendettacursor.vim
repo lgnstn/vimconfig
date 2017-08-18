@@ -1,7 +1,7 @@
 " Default GUI Colours
 let s:foreground = "eaeaea"
 let s:background = "000000"
-let s:selection = "424242"
+let s:selection = "929292"
 let s:line = "202020"
 let s:non_text = "666666"
 let s:comment = "888888"
@@ -18,7 +18,7 @@ let s:tab_fg = "f6f6f6"
 let s:linenr_bg = "202020"
 let s:linenr_fg = "777777"
 let s:statusline_bg = "cccccc"
-let s:statusline_fg = "222222"
+let s:statusline_fg = "020202"
 let s:cursor_bg = "555555"
 
 set background=dark
@@ -258,7 +258,7 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
   call <SID>X("FoldColumn", "", s:background, "")
   "call <SID>X("Cursor", "NONE", s:non_text, "none")
   hi CursorLine guibg=#202020
-  hi Cursor guifg=NONE guibg=#555555 gui=none
+  hi Cursor guifg=NONE guibg=#60f907 gui=none
   if version >= 700
     call <SID>X("CursorLine", "", s:line, "none")
     call <SID>X("CursorColumn", "", s:line, "none")
