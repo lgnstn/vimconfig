@@ -27,6 +27,15 @@ Plugin 'VundleVim/Vundle.vim'
 
 " My Plugins here:
 
+" Typescript
+Plugin 'https://github.com/Quramy/tsuquyomi'
+
+" Typescript syntax
+Plugin 'https://github.com/leafgarland/typescript-vim'
+
+" Typescript syntax highlight for contents in Template Strings
+Plugin 'Quramy/vim-js-pretty-template'
+
 " Markdown preview
 Plugin 'JamshedVesuna/vim-markdown-preview'
 
