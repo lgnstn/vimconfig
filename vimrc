@@ -11,6 +11,8 @@ set dir=~/.vimtmp
 
 let g:syntastic_javascript_checkers = ['eslint']
 
+let NERDTreeIgnore = ['\.pyc$', '\.php\~$']
+
 " Autosave when focus is lost
 :au FocusLost * :wa
 
@@ -18,6 +20,9 @@ source ~/.vim/php-doc.vim
 inoremap <C-Z> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-Z> :call PhpDocSingle()<CR>
 vnoremap <C-Z> :call PhpDocRange()<CR>
+
+" Search for visually selected text
+vnoremap // y/<C-R>"<CR>
 
 " Reopen last closed window that was in split
 nmap <c-s-t> :vs<bar>:b#<CR>
@@ -27,8 +32,17 @@ Plugin 'VundleVim/Vundle.vim'
 
 " My Plugins here:
 
-" Typescript
-Plugin 'https://github.com/Quramy/tsuquyomi'
+" Handlebars and Mustache templates
+Plugin 'mustache/vim-mustache-handlebars'
+
+" CamelCase motion
+Plugin 'bkad/CamelCaseMotion'
+
+" Image viewer
+Plugin 'ashisha/image.vim'
+
+" Pug (Jade) syntax highlighting
+Plugin 'https://github.com/digitaltoad/vim-pug'
 
 " Typescript syntax
 Plugin 'https://github.com/leafgarland/typescript-vim'
@@ -158,6 +172,8 @@ filetype plugin indent on    " required
 
 " Change the mapleader default key to ','
 let mapleader = ","
+
+call camelcasemotion#CreateMotionMappings('<leader>')
 
 " Maintain undo history between sessions
 set undofile
