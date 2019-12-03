@@ -38,9 +38,6 @@ Plugin 'mustache/vim-mustache-handlebars'
 " CamelCase motion
 Plugin 'bkad/CamelCaseMotion'
 
-" Image viewer
-Plugin 'ashisha/image.vim'
-
 " Pug (Jade) syntax highlighting
 Plugin 'https://github.com/digitaltoad/vim-pug'
 
@@ -110,9 +107,6 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/nerdtree-ack'
 Plugin 'mileszs/ack.vim'
-
-" PHPUnit
-Plugin 'joonty/vim-phpunitqf'
 
 " Javascript
 Plugin 'pangloss/vim-javascript'
@@ -192,7 +186,10 @@ set background=dark
 
 if has('gui_running')
     " Enable the solarized theme
-    colorscheme vendettacursor
+    " colorscheme vendettacursor
+    " color solarized
+    " color zenburn
+    color gruvbox
 
     " Enable Spell Checking
     set spell
