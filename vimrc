@@ -21,16 +21,39 @@ inoremap <C-Z> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-Z> :call PhpDocSingle()<CR>
 vnoremap <C-Z> :call PhpDocRange()<CR>
 
+" Allow per-project vimrc
+set exrc
+
 " Search for visually selected text
 vnoremap // y/<C-R>"<CR>
 
 " Reopen last closed window that was in split
 nmap <c-s-t> :vs<bar>:b#<CR>
 
+" Vim Plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+
+" Conquer of Completion
+Plug 'neoclide/coc.nvim'
+
+call plug#end()
+
 " let Vundle manage Vundle. Required!
 Plugin 'VundleVim/Vundle.vim'
 
 " My Plugins here:
+
+" Gruvbox color scheme
+Plugin 'morhetz/gruvbox'
+
+" Vue Plugin
+Plugin 'posva/vim-vue'
 
 " Handlebars and Mustache templates
 Plugin 'mustache/vim-mustache-handlebars'
@@ -103,7 +126,7 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'tpope/vim-surround'
 
 " Filesystem tree (with search capability) and code commenter
-Plugin 'scrooloose/nerdtree'
+Plugin 'lgnstn/nerdtree'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'vim-scripts/nerdtree-ack'
 Plugin 'mileszs/ack.vim'
@@ -118,7 +141,7 @@ Plugin 'othree/yajs.vim'
 Plugin 'scrooloose/syntastic'
 
 " TAB for autocompletion
-Plugin 'ervandew/supertab'
+"Plugin 'ervandew/supertab'
 
 " Snippets
 "Plugin 'SirVer/ultisnips'
@@ -126,6 +149,7 @@ Plugin 'ervandew/supertab'
 
 " Full path fuzzy file finder
 Plugin 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git\|vendor'
 
 " Single line and multi line navigation
 Plugin 'Lokaltog/vim-easymotion'
@@ -146,6 +170,8 @@ Plugin 'greyblake/vim-preview'
 
 Plugin 'kchmck/vim-coffee-script'
 
+" PHP doc blocks
+Bundle 'tobyS/pdv'
 "
 "
 " Brief help " :PluginList       - lists configured plugins
@@ -169,9 +195,36 @@ let mapleader = ","
 
 call camelcasemotion#CreateMotionMappings('<leader>')
 
+" PHP XDebug
+let g:vdebug_options = {
+      \ 'port' : 9005,
+      \ 'server' : '',
+      \ 'path_maps': {
+        \ '/var/www/partfiniti': '/Users/iustin/Sites/partfiniti/api/web'
+      \ }
+      \}
+let g:vdebug_options.break_on_open = 0
+" let g:vdebug_keymap = {
+"       \   "run" : "<F5>",
+"       \   "run_to_cursor" : "<C-p>",
+"       \   "step_over" : "<C-o>",
+"       \   "step_into" : "<C-i>",
+"       \   "step_out" : "<C-o>",
+"       \   "close" : "<C-x>",
+"       \   "detach" : "<C-z>",
+"       \   "set_breakpoint" : "<F10>",
+"       \   "get_context" : "<C-y>",
+"       \   "eval_under_cursor" : "<C-e>",
+"       \   "eval_visual" : "<Leader>e",
+"       \}
+"
+
 " Maintain undo history between sessions
 set undofile
 set undodir=~/.vim/undo
+
+" Load coc.nvim config
+source ~/.vim/coc.nvim.vim
 
 " Markdown preview key
 let vim_markdown_preview_hotkey='<C-m>'
@@ -216,11 +269,20 @@ autocmd FileType ruby set tabstop=2 | set softtabstop=2 | set shiftwidth=2
 " Show a status bar
 set ruler
 set laststatus=2
+set statusline=%f         " Path to the file
+set statusline+=%=        " Switch to the right side
+set statusline+=%l        " Current line
+set statusline+=/         " Separator
+set statusline+=%L        " Total lines
 
 " Set Search options highlight, and wrap search
 set hls is " highlight search text throughout the document.
 set wrapscan " wrap the scan around the document
 set ic "ignore case in search
+
+" PDV - PHP Documentor
+let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+nnoremap <buffer> <C-a> :call pdv#DocumentWithSnip()<CR>
 
 " Incremental searching
 map /  <Plug>(incsearch-forward)
@@ -271,6 +333,7 @@ match ErrorMsg '\%>80v.\+'
 " Highlight the columns from 81 to 120
 execute 'set colorcolumn=' . join(range(81,120),',')
 autocmd Filetype php execute 'set colorcolumn=' . join(range(121,140),',')
+autocmd Filetype phtml execute 'set colorcolumn=' . join(range(301,340),',')
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -344,11 +407,8 @@ imap <C-@> <C-Space>
 "Dash bindings
 :nmap <silent> <leader>da <Plug>DashSearch
 
-" Start interactive EasyAlign in visual mode (e.g. vip<Enter>)
-vmap <Enter> <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. <Leader>aip)
-nmap <Leader>a <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
 
 " Reselect visual block after indent/outdent
 vnoremap < <gv
@@ -376,6 +436,9 @@ let g:YUNOcommit_after = 200
 let g:buffergator_suppress_keymaps = 1
 nmap <silent> <C-b> :BuffergatorToggle<CR>
 
+" Show sign column
+set signcolumn=auto
+
 "Disable scroll bars
 :set guioptions-=l
 :set guioptions-=L
@@ -401,4 +464,8 @@ noremap <leader>n :NERDTreeFind<CR>
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 " Do no scan included files - Supertab
-set complete-=i
+"set complete-=i
+
+autocmd vimenter * colorscheme gruvbox
+
+set secure
