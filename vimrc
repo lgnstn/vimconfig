@@ -20,6 +20,8 @@ source ~/.vim/php-doc.vim
 inoremap <C-Z> <ESC>:call PhpDocSingle()<CR>i
 nnoremap <C-Z> :call PhpDocSingle()<CR>
 vnoremap <C-Z> :call PhpDocRange()<CR>
+inoremap <D-s> <ESC>:w<CR>a
+nnoremap <D-s> :w<CR>
 
 " Allow per-project vimrc
 set exrc
@@ -91,7 +93,7 @@ Plugin 'thinca/vim-localrc'
 " themes and statusbars
 "Plugin 'altercation/vim-colors-solarized'
 Plugin 'Yggdroot/indentLine'
-Plugin 'bling/vim-airline'
+"Plugin 'bling/vim-airline'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
@@ -204,19 +206,19 @@ let g:vdebug_options = {
       \ }
       \}
 let g:vdebug_options.break_on_open = 0
-" let g:vdebug_keymap = {
-"       \   "run" : "<F5>",
-"       \   "run_to_cursor" : "<C-p>",
-"       \   "step_over" : "<C-o>",
-"       \   "step_into" : "<C-i>",
-"       \   "step_out" : "<C-o>",
-"       \   "close" : "<C-x>",
-"       \   "detach" : "<C-z>",
-"       \   "set_breakpoint" : "<F10>",
-"       \   "get_context" : "<C-y>",
-"       \   "eval_under_cursor" : "<C-e>",
-"       \   "eval_visual" : "<Leader>e",
-"       \}
+let g:vdebug_keymap = {
+       \   "run" : "<F5>",
+       \   "run_to_cursor" : "<C-p>",
+       \   "step_over" : "<C-o>",
+       \   "step_into" : "<C-i>",
+       \   "step_out" : "<C-o>",
+       \   "close" : "<C-x>",
+       \   "detach" : "<C-z>",
+       \   "set_breakpoint" : "<F10>",
+       \   "get_context" : "<C-y>",
+       \   "eval_under_cursor" : "<C-e>",
+       \   "eval_visual" : "<Leader>e",
+       \}
 "
 
 " Maintain undo history between sessions
