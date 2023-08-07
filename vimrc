@@ -1,5 +1,5 @@
 " START VUNDLE CONFIGURATION
-"
+
 set nocompatible               " be iMproved
 filetype off                   " required!
 
@@ -42,7 +42,13 @@ endif
 call plug#begin()
 
 " Conquer of Completion
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Nightfox color scheme
+Plug 'EdenEast/nightfox.nvim'
+
+" Svelte plugin
+Plug 'leafOfTree/vim-svelte-plugin'
 
 call plug#end()
 
@@ -53,6 +59,12 @@ Plugin 'VundleVim/Vundle.vim'
 
 " Gruvbox color scheme
 Plugin 'morhetz/gruvbox'
+
+" Dragon-energy color scheme
+Plug 'wdhg/dragon-energy'
+
+" Vim-aurora color scheme
+Plug 'rafalbromirski/vim-aurora'
 
 " Vue Plugin
 Plugin 'posva/vim-vue'
@@ -81,23 +93,18 @@ Plugin 'joonty/vdebug'
 " Python indentation
 Plugin 'vim-scripts/indentpython.vim'
 
-" Ruby support
-Plugin 'git@github.com:vim-ruby/vim-ruby.git'
-
-" Rails support
-Plugin 'git@github.com:tpope/vim-rails.git'
-
 " Enable configuration file of each directory
 Plugin 'thinca/vim-localrc'
 
 " themes and statusbars
 "Plugin 'altercation/vim-colors-solarized'
 Plugin 'Yggdroot/indentLine'
+
 "Plugin 'bling/vim-airline'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 
-" Plugin to udnerstand .editorconfig files
+" Plugin to understand .editorconfig files
 Plugin 'editorconfig/editorconfig-vim'
 
 " Session management
@@ -105,7 +112,7 @@ Plugin 'xolox/vim-session'
 Plugin 'xolox/vim-misc'
 
 " Recover from existing swap files
-Plugin 'chrisbra/Recover.vim'
+"Plugin 'chrisbra/Recover.vim'
 
 " Buffer management
 Plugin 'jeetsukumaran/vim-buffergator'
@@ -120,7 +127,6 @@ Plugin 'chrisbra/NrrwRgn'
 " Numbering and git
 Plugin 'myusuf3/numbers.vim'
 Plugin 'tpope/vim-fugitive'
-Plugin 'esneider/YUNOcommit.vim'
 
 " Automagically adds closing quotes and braces
 " Easily Add, change and delete surroundings
@@ -168,9 +174,6 @@ Plugin 'mattn/emmet-vim'
 
 " Previewing markup files
 Plugin 'greyblake/vim-preview'
-
-
-Plugin 'kchmck/vim-coffee-script'
 
 " PHP doc blocks
 Bundle 'tobyS/pdv'
@@ -227,6 +230,7 @@ set undodir=~/.vim/undo
 
 " Load coc.nvim config
 source ~/.vim/coc.nvim.vim
+autocmd FileType scss setl iskeyword+=@-@
 
 " Markdown preview key
 let vim_markdown_preview_hotkey='<C-m>'
@@ -241,10 +245,27 @@ set background=dark
 
 if has('gui_running')
     " Enable the solarized theme
-    " colorscheme vendettacursor
-    " color solarized
-    " color zenburn
-    color gruvbox
+     "colorscheme vendettacursor
+     "color solarized
+     "color zenburn
+    "color gruvbox
+    "color dragon-energy
+    "color superman
+    "color ir_black
+    color molokai
+
+    " aurora begin
+    "color aurora
+    "set termguicolors
+    "set background=dark
+    "colorscheme aurora
+    " aurora end
+
+
+     "color cobalt
+    "color hemisu
+    "color holokai
+    "color nightfox
 
     " Enable Spell Checking
     set spell
@@ -265,8 +286,10 @@ set softtabstop=4
 set shiftwidth=4
 
 autocmd FileType javascript set tabstop=2 | set softtabstop=2 | set shiftwidth=2
+autocmd FileType typescript set tabstop=2 | set softtabstop=2 | set shiftwidth=2
 autocmd FileType html set tabstop=2 | set softtabstop=2 | set shiftwidth=2
 autocmd FileType ruby set tabstop=2 | set softtabstop=2 | set shiftwidth=2
+autocmd FileType php set tabstop=4 | set softtabstop=4 | set shiftwidth=4
 
 " Show a status bar
 set ruler
@@ -332,10 +355,10 @@ map <S-Right> <C-w>>
 " Show lines that exceed 80 characters
 match ErrorMsg '\%>80v.\+'
 
-" Highlight the columns from 81 to 120
-execute 'set colorcolumn=' . join(range(81,120),',')
-autocmd Filetype php execute 'set colorcolumn=' . join(range(121,140),',')
-autocmd Filetype phtml execute 'set colorcolumn=' . join(range(301,340),',')
+" Highlight the columns from 81 to 85
+execute 'set colorcolumn=' . join(range(81,85),',')
+autocmd Filetype php execute 'set colorcolumn=' . join(range(121,130),',')
+autocmd Filetype phtml execute 'set colorcolumn=' . join(range(301,310),',')
 
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -349,7 +372,7 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd BufWritePre * :%s/\s\+$//e
 
 " Use ack-grep instead of ack
-let g:ackprg="ack-grep -H --smart-case --nocolor --nogroup --column"
+"let g:ackprg="ack-grep -H --smart-case --nocolor --nogroup --column"
 
 " first set path
 set path+=**
@@ -368,7 +391,7 @@ let g:ctrlp_working_path_mode = 0
 " Exclude some files from ctrlp
 set wildignore+=*/tmp/*,*.so,*.swp,*~,*.zip,*/cache/*
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+    \ 'dir':  '\v[\/]\.(git|hg|svn|node_modules)$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
@@ -386,7 +409,7 @@ vmap <C-v> c<ESC>"+p
 imap <C-v> <C-r><C-o>+"
 
 " Symfony2 command shell
-map <leader>c :!./app/console -s<CR>
+"map <leader>c :!./app/console -s<CR>
 
 " Disabling the cursor/arrow keys
 inoremap  <Up>     <NOP>
@@ -447,14 +470,14 @@ set signcolumn=auto
 :set guioptions-=r
 :set guioptions-=R
 
-"Scroll the window with 10 lines around
-set scrolloff=5
+"Scroll the window with 4 lines around
+set scrolloff=2
 
 "IndentLine config
 let g:indentLine_char = '.'
 
 " Reload ~/.vimrc key binding
-noremap <Leader>rv :source ~/.vimrc<CR>
+noremap <Leader>rv :source ~/.vim/vimrc<CR>
 
 " Enable the expansion of <CR>
 let delimitMate_expand_cr = 2
@@ -468,6 +491,25 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " Do no scan included files - Supertab
 "set complete-=i
 
-autocmd vimenter * colorscheme gruvbox
+" EJS syntax highlighting
+au BufNewFile,BufRead *.ejs set filetype=html
+
+autocmd vimenter * colorscheme molokai
+"autocmd vimenter * colorscheme gruvbox
+
+" Push changes
+noremap <C-b>p :! ./push<CR>
+
+if exists("g:neovide")
+    " Put anything you want to happen only in Neovide here
+
+    "set guifont=Roboto:h12
+    let g:neovide_scale_factor = 0.8
+    let g:neovide_remember_window_size = v:true
+endif
+
+" Copilot
+imap <silent><script><expr> <M-TAB> copilot#Accept("\<TAB>")
+let g:copilot_no_tab_map = v:true
 
 set secure
